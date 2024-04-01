@@ -25,7 +25,7 @@ on:
     branches:
       - master
     paths: ['.github/workflows/bench.yml', '**/CMakeLists.txt', '**/Makefile', '**/*.h', '**/*.hpp', '**/*.c', '**/*.cpp', '**/*.cu', '**/*.swift', '**/*.m', 'examples/server/bench/**.*']
-  pull_request:
+  pull_request_target:
     types: [opened, synchronize, reopened]
     paths: ['.github/workflows/bench.yml', '**/CMakeLists.txt', '**/Makefile', '**/*.h', '**/*.hpp', '**/*.c', '**/*.cpp', '**/*.cu', '**/*.swift', '**/*.m', 'examples/server/bench/**.*']
   schedule:
@@ -42,7 +42,7 @@ jobs:
       RUNNER_LABEL: Standard_NC4as_T4_v3 # FIXME Do not find a way to not duplicate it
       N_USERS: 8
       DURATION: 10m
-    if: ${{ github.event.inputs.gpu-series == 'Standard_NC4as_T4_v3' || github.event.schedule || github.event.pull_request || github.event.push.ref == 'refs/heads/master' }}
+    if: ${{ github.event.inputs.gpu-series == 'Standard_NC4as_T4_v3' || github.event.schedule || github.event.pull_request || github.head_ref == 'master' || github.ref_name == 'master' || github.event.push.ref == 'refs/heads/master' }}
     steps:
       - name: Clone
         id: checkout
